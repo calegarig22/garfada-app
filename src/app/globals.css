@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   TOKENS = nomes fixos para cada cor/tamanho do app.
+   Regra de ouro: as telas usam o NOME (ex. bg-primary), nunca o
+   código da cor solto. Para mudar a cor do app inteiro, muda aqui.
+   Direção "Feira & boteco" — detalhes em DESIGN_SYSTEM.md.
+   ───────────────────────────────────────────────────────────── */
+
+/* Tema claro */
+:root {
+  --bg: #f3f5f1; /* branco-azulejo (frio, não creme) */
+  --surface: #ffffff;
+  --surface-sunken: #e6ebe4;
+  --border: #d3dbd2;
+  --text: #14201a; /* tinta: verde quase preto */
+  --text-muted: #55625a;
+  --primary: #c8321f; /* vermelho-tomate: botões e ações */
+  --primary-fg: #ffffff;
+  --accent: #1e5a3c; /* verde-garrafa: faixas de topo, destaques */
+  --accent-fg: #f3f5f1;
+  --tag: #f5c431; /* amarelo-gema: SÓ a plaquinha de nota */
+  --tag-fg: #14201a;
+  --star: #a77208;
+  --star-empty: #cbd3ca;
+  --nav-active: #f5c431;
+  --nav-active-fg: #14201a;
+  --ring: #1e5a3c;
+  --danger: #a61b12;
+  color-scheme: light;
+}
+
+/* Tema escuro — segue o celular (boteco à noite) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1712;
+    --surface: #16231b;
+    --surface-sunken: #1f2e25;
+    --border: #2d3f33;
+    --text: #edf2ec;
+    --text-muted: #9daaa1;
+    --primary: #f0604b;
+    --primary-fg: #14201a;
+    --accent: #133a27;
+    --accent-fg: #edf2ec;
+    --tag: #f5c431;
+    --tag-fg: #14201a;
+    --star: #f5c431;
+    --star-empty: #3a4d40;
+    --nav-active: #f5c431;
+    --nav-active-fg: #14201a;
+    --ring: #f5c431;
+    --danger: #ff7a6b;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-tag: var(--tag);
+  --color-tag-fg: var(--tag-fg);
+  --color-star: var(--star);
+  --color-star-empty: var(--star-empty);
+  --color-nav-active: var(--nav-active);
+  --color-nav-active-fg: var(--nav-active-fg);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+
+  /* Letreiro (alta e condensada) · texto · pincel atômico (só plaquinhas) */
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-schibsted), "Helvetica Neue", sans-serif;
+  --font-marker: var(--font-permanent-marker), "Comic Sans MS", cursive;
+
+  --radius-card: 0.625rem;
+  --radius-control: 0.375rem;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* Foco visível para quem navega pelo teclado */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Botões "afundam" levemente ao toque */
+  .pressable {
+    transition: transform 120ms var(--ease-out), background-color 120ms var(--ease-out),
+      box-shadow 120ms var(--ease-out);
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+
+  /* Título de letreiro: caixa alta, condensado, apertado */
+  .letreiro {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.88;
+  }
+
+  /* Plaquinha de preço de feira: cartolina amarela, pincel atômico, meio torta */
+  .plaquinha {
+    display: inline-block;
+    rotate: -4deg;
+    filter: drop-shadow(0 2px 0 rgb(0 0 0 / 0.28));
+  }
+  .plaquinha > span {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.12em;
+    padding: 0.28em 0.5em 0.18em;
+    background: var(--tag);
+    color: var(--tag-fg);
+    font-family: var(--font-marker);
+    line-height: 1;
+    /* cantos cortados à tesoura, cada um de um jeito */
+    clip-path: polygon(2% 7%, 97% 0, 100% 90%, 5% 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
