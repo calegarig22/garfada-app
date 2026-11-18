@@ -51,3 +51,9 @@ src/
 drizzle/         migrations SQL (inclui seed de cozinhas e restaurantes de SP)
 scripts/         seed e limpeza de dados de teste
 ```
+
+## Direitos autorais
+
+© 2026 Gustavo Fiedler Calegari. Todos os direitos reservados.
+
+Este código está publicado apenas para avaliação de portfólio. Não é permitido copiar, modificar, distribuir ou usar comercialmente, no todo ou em parte, sem autorização por escrito do autor.
